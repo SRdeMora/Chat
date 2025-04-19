@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chatbot de prueba</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      df-messenger {
+        --df-messenger-bot-message: #e0e0e0;
+        --df-messenger-button-titlebar-color: #00796b;
+        --df-messenger-chat-background-color: #ffffff;
+        --df-messenger-font-color: #000;
+        --df-messenger-send-icon: #00796b;
+        --df-messenger-user-message: #dcf8c6;
+      }
+    </style>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  </head>
+  <body>
+    <df-messenger
+      chat-icon="https://png.pngtree.com/png-clipart/20231020/original/pngtree-green-cute-owl-png-image_13379396.png"
+      intent="WELCOME"
+      chat-title="CentroAuditivo"
+      agent-id="39afc568-ae04-40a6-99a1-6672c0418459"
+      language-code="es">
+    </df-messenger>
+  </body>
+</html>
