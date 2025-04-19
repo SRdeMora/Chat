@@ -1,2 +1,1 @@
-[
-](https://srdemora.github.io/Chat/)
+https://srdemora.github.io/Chat/
