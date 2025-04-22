@@ -1,0 +1,151 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+from flask import Flask, request, jsonify
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+import base64
+from email.mime.text import MIMEText
+import os
+app = Flask(__name__)
+
+# Configuración de la API de Gmail
+def enviar_correo(destinatario, asunto, mensaje):
+    Aquí tienes el código ajustado para usar variables de entorno en lugar de depender directamente del archivo credenciales_bot.json. Esto es ideal para despliegues en Render, donde los secretos se manejan como variables de entorno:
+from flask import Flask, request, jsonify
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+import base64
+from email.mime.text import MIMEText
+import os
+import json
+
+app = Flask(__name__)
+
+# Configuración de la API de Gmail
+def enviar_correo(destinatario, asunto, mensaje):
+    # Obtener las credenciales desde la variable de entorno
+    credenciales_json = os.getenv("CREDENTIALES_BOT")
+    if not credenciales_json:
+        raise ValueError("Las credenciales no están configuradas en las variables de entorno")
+    
+    creds_info = json.loads(credenciales_json)
+    creds = Credentials.from_authorized_user_info(creds_info)
+
+    # Construir el servicio de Gmail
+    service = build('gmail', 'v1', credentials=creds)
+
+    # Crear el mensaje
+    message = MIMEText(mensaje)
+    message['to'] = destinatario
+    message['subject'] = asunto
+    raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    message = {'raw': raw}
+
+    # Enviar el correo
+    service.users().messages().send(userId="me", body=message).execute()
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    req = request.get_json()
+
+    # Extraer parámetros enviados desde Dialogflow
+    nombre = req['queryResult']['parameters'].get('user')
+    Motivo = req['queryResult']['parameters'].get('mutivo')
+    Fecha = req['queryResult']['parameters'].get('data-time')
+    correo = "rasparecords@gmail.com"
+
+    # Crear el contenido del correo
+    asunto = "Confirmación de cita"
+    mensaje = f"""En breve se pondrá en contacto contigo uno de nuestros profesionales para confirmar tu cita.
+
+Hola {nombre},
+
+Tu cita está confirmada para el {Fecha} por el motivo: {Motivo}.
+
+Saludos."""
+
+    # Enviar el correo
+    enviar_correo(correo, asunto, mensaje)
+
+    # Responder a Dialogflow
+    fulfillment_text = f"Se ha enviado un correo de confirmación a {correo}."
+    return jsonify({'fulfillmentText': fulfillment_text})
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
+
+
+Cambios realizados:
+- Uso de variables de entorno para las credenciales:- Se reemplazó Credentials.from_authorized_user_file() por Credentials.from_authorized_user_info() con datos cargados desde la variable de entorno CREDENTIALES_BOT.
+
+- Validación de credenciales:- Se agregó una validación para asegurarse de que las credenciales estén configuradas en las variables de entorno.
+
+- Adaptación a Render:- Se prescindió del archivo local credenciales_bot.json para que sea compatible con el manejo de secretos en Render.
+
+
+Recuerda agregar la variable de entorno CREDENTIALES_BOT en tu configuración de Render con el contenido del archivo JSON de credenciales. Si necesitas más ayuda, ¡avísame! 😊
+
+    service = build('gmail', 'v1', credentials=creds)
+
+    message = MIMEText(mensaje)
+    message['to'] = destinatario
+    message['subject'] = asunto
+    raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    message = {'raw': raw}
+
+    service.users().messages().send(userId="me", body=message).execute()
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    req = request.get_json()
+
+    # Extraer parámetros enviados desde Dialogflow
+    nombre = req['queryResult']['parameters'].get('user')
+    Motivo = req['queryResult']['parameters'].get('mutivo')
+    Fecha = req['queryResult']['parameters'].get('data-time')
+    correo="rasparecords@gmail.com"
+    # Crear el contenido del correo
+    asunto = "Confirmación de cita"
+    mensaje = mensaje = f"""En breve se pondrá en contacto contigo uno de nuestros profesionales para confirmar tu cita.
+
+Hola {nombre},
+
+Tu cita está confirmada para el {Fecha} por el motivo: {Motivo}.
+
+Saludos."""
+
+
+    # Enviar el correo
+    enviar_correo(correo, asunto, mensaje)
+
+    # Responder a Dialogflow
+    fulfillment_text = f"Se ha enviado un correo de confirmación a {correo}."
+    return jsonify({'fulfillmentText': fulfillment_text})
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
