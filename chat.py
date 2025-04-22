@@ -85,17 +85,6 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
 
-
-Cambios realizados:
-- Uso de variables de entorno para las credenciales:- Se reemplazó Credentials.from_authorized_user_file() por Credentials.from_authorized_user_info() con datos cargados desde la variable de entorno CREDENTIALES_BOT.
-
-- Validación de credenciales:- Se agregó una validación para asegurarse de que las credenciales estén configuradas en las variables de entorno.
-
-- Adaptación a Render:- Se prescindió del archivo local credenciales_bot.json para que sea compatible con el manejo de secretos en Render.
-
-
-Recuerda agregar la variable de entorno CREDENTIALES_BOT en tu configuración de Render con el contenido del archivo JSON de credenciales. Si necesitas más ayuda, ¡avísame! 😊
-
     service = build('gmail', 'v1', credentials=creds)
 
     message = MIMEText(mensaje)
