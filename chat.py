@@ -10,16 +10,9 @@
 # In[ ]:
 
 
-from flask import Flask, request, jsonify
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
-import base64
-from email.mime.text import MIMEText
-import os
-app = Flask(__name__)
 
 # Configuración de la API de Gmail
-def enviar_correo(destinatario, asunto, mensaje):
+
 from flask import Flask, request, jsonify
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
