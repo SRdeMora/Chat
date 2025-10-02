@@ -10,15 +10,13 @@
 <p align="center">
   <!-- Reemplaza estos badges con los que correspondan a tu proyecto -->
   <img src="https://img.shields.io/github/license/SRdeMora/Chat?style=for-the-badge" alt="Licencia">
-  <img src="https://img.shields.io/github/stars/SRdeMora/Chat?style=for-the-badge" alt="Estrellas">
-  <img src="https://img.shields.io/github/forks/SRdeMora/Chat?style=for-the-badge" alt="Forks">
 </p>
 
 ---
 
 ## 📜 Descripción
 
-Este es un proyecto de una aplicación de chat completamente funcional que permite a los usuarios comunicarse en tiempo real. La aplicación está diseñada para ser [**describe aquí el objetivo, ej: ligera, escalable, modular, un chatbot inteligente, etc.**]. Sirve como una demostración práctica de la implementación de websockets para comunicación bidireccional entre cliente y servidor.
+Este es un proyecto de una aplicación de chat completamente funcional que permite a los usuarios comunicarse en tiempo real. La aplicación está diseñada para ser Samuel Rodríguez. Sirve como una demostración práctica de la implementación de websockets para comunicación bidireccional entre cliente y servidor.
 
 <br>
 
